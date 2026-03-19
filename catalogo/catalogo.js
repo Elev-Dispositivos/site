@@ -1,8 +1,8 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.32.0'
 
-// Configuração do Supabase
-const supabaseUrl = 'https://pvlobuvyblzcielydbum.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2bG9idXZ5Ymx6Y2llbHlkYnVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5NTExMjcsImV4cCI6MjA2MTUyNzEyN30.o4VBtpt5wHLj7j-RpcHGYgh6eogCpMnp9jDJM4yecMw';
+// Configuração do Supabase (Carregada via window.supabaseConfig no index.html)
+const supabaseUrl = window.supabaseConfig.url;
+const supabaseKey = window.supabaseConfig.key;
 const supabase = createClient(supabaseUrl, supabaseKey);
 // Usando client anônimo - acesso público, sem autenticação
 

@@ -1,0 +1,7 @@
+pipeline: squads/webmcp_optimization/squad.yaml
+steps:
+  - squads/webmcp_optimization/pipeline/steps/step-01-pesquisa.md
+  - squads/webmcp_optimization/pipeline/steps/step-02-scope.md
+  - squads/webmcp_optimization/pipeline/steps/step-03-auditoria.md
+  - squads/webmcp_optimization/pipeline/steps/step-04-guia.md
+  - squads/webmcp_optimization/pipeline/steps/step-05-revisao.md

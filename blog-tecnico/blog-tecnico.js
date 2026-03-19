@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async function() {
-    // Inicialização do Supabase
-    const supabaseUrl = 'https://pvlobuvyblzcielydbum.supabase.co'; // Mantenha seu URL do Supabase
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2bG9idXZ5Ymx6Y2llbHlkYnVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5NTExMjcsImV4cCI6MjA2MTUyNzEyN30.o4VBtpt5wHLj7j-RpcHGYgh6eogCpMnp9jDJM4yecMw'; // Mantenha sua chave do Supabase
+    // Inicialização do Supabase (Valores carregados via supabase-config.js)
+    const supabaseUrl = window.supabaseConfig.url;
+    const supabaseKey = window.supabaseConfig.key;
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     // Função para buscar posts
@@ -178,43 +178,50 @@ document.addEventListener('DOMContentLoaded', async function() {
     const newsletterForm = document.querySelector('.newsletter-form');
     
     if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
+        newsletterForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const emailInput = this.querySelector('input[type="email"]');
-            if (!emailInput.value.trim()) return;
+            const email = emailInput.value.trim();
+            if (!email) return;
             
-            // In a real implementation, you would submit the form data to a server
-            
-            // Show success message
-            const formElement = this;
-            const successMessage = document.createElement('div');
-            successMessage.className = 'newsletter-success';
-            successMessage.innerHTML = `
-                <svg width="40" height="40" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="18" fill="none" stroke="#FFFFFF" stroke-width="2" />
-                    <path d="M12,20 L18,26 L28,16" fill="none" stroke="#FFFFFF" stroke-width="2" />
-                </svg>
-                <p>Obrigado por se inscrever! Em breve você receberá nossas atualizações.</p>
-            `;
-            
-            // Replace form with success message
-            formElement.innerHTML = '';
-            formElement.appendChild(successMessage);
-            
-            // Reset form after 3 seconds (for demonstration purposes)
-            setTimeout(function() {
-                formElement.innerHTML = `
-                    <div class="form-group">
-                        <input type="email" placeholder="Seu melhor e-mail" required>
-                        <button type="submit" class="btn btn-secondary">Inscrever-se</button>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" id="privacy" required>
-                        <label for="privacy">Concordo em receber e-mails da ELEV Dispositivos</label>
-                    </div>
-                `;
-            }, 3000);
+            // Inicia estado de carregamento
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
+
+            try {
+                // Chamada segura via RPC (Remote Procedure Call) no Supabase
+                const { data, error } = await supabase.rpc('subscribe_newsletter', { p_email: email });
+
+                if (error) throw error;
+
+                if (data && data.success) {
+                    // Show success message
+                    const formElement = this;
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'newsletter-success';
+                    successMessage.innerHTML = `
+                        <svg width="40" height="40" viewBox="0 0 40 40">
+                            <circle cx="20" cy="20" r="18" fill="none" stroke="#FFFFFF" stroke-width="2" />
+                            <path d="M12,20 L18,26 L28,16" fill="none" stroke="#FFFFFF" stroke-width="2" />
+                        </svg>
+                        <p>${data.message || 'Obrigado por se inscrever! Em breve você receberá nossas atualizações.'}</p>
+                    `;
+                    
+                    formElement.innerHTML = '';
+                    formElement.appendChild(successMessage);
+                } else {
+                    throw new Error(data.error || 'Erro ao realizar inscrição.');
+                }
+
+            } catch (err) {
+                console.error('Erro Newsletter:', err);
+                alert('Ocorreu um erro ao processar sua inscrição. Por favor, tente novamente mais tarde.');
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            }
         });
     }
     

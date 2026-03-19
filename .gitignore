@@ -1,0 +1,26 @@
+# Ambiente e Segurança
+.env
+supabase-config.js
+supabase-config.example.js
+license.js
+
+# Documentação (ignora tudo exceto README e o Catálogo PDF)
+/docs/*
+!/docs/README.md
+!/docs/Catalogo.pdf
+
+# Dependências e Builds
+node_modules/
+dist/
+.netlify/
+
+# Arquivos de Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos Essenciais (Permitidos)
+!README.md
+!sitemap.xml
+!robots.txt
+!_redirects

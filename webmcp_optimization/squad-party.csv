@@ -1,0 +1,5 @@
+id,name,role,path
+rafaela_referencia,Rafaela Referência,Pesquisadora de Specs,./agents/rafaela_referencia.agent.md
+augusto_auditor,Augusto Auditor,Engenheiro de Auditoria,./agents/augusto_auditor.agent.md
+guilherme_guia,Guilherme Guia,Arquiteto de Soluções,./agents/guilherme_guia.agent.md
+vera_veredito,Vera Veredito,Revisora Senior,./agents/vera_veredito.agent.md

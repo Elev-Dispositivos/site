@@ -2,6 +2,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/license.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Catálogo de Equipamentos de Elevação | ELEV",
+      "url": "https://www.elevdispositivos.com.br/catalogo/",
+      "description": "Explore nosso catálogo completo de dispositivos de elevação hidráulica para o setor agroindustrial e logístico.",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Início",
+          "item": "https://www.elevdispositivos.com.br/"
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Catálogo"
+        }]
+      }
+    }
+    </script>
     <!-- SEO Essencial -->
     <meta name="description" content="A ELEV Dispositivos oferece soluções robustas para elevação de máquinas agroindustriais, logísticas, construção civil e cargas pesadas, com tecnologia e segurança.">
     <meta name="keywords" content="elevadores industriais, equipamentos de elevação, soluções agroindustriais, logística, construção civil, cargas pesadas, guindastes, plataformas elevatórias, empilhadeiras, macacos hidráulicos, dispositivo de elevação, macacos de elevação, elevação de cargas, elevação de tratores, elevação de colheitadeiras, soluções de peso para o agro ">
@@ -25,6 +48,9 @@
     <link rel="stylesheet" href="catalogo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="../midias/favicon-120x120.png" type="image/png">
+    
+    <!-- Configurações do Supabase -->
+    <script src="/supabase-config.js"></script>
 </head>
 <body>
     <header>
@@ -34,9 +60,10 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#" class="active">Catálogo</a></li>
-                    <li><a href="#">Sobre</a></li>
-                    <li><a href="#">Contato</a></li>
+                    <li><a href="/" class="active">Início</a></li>
+                    <li><a href="/dispositivos/">Dispositivos</a></li>
+                    <li><a href="/sobre/">Sobre Nós</a></li>
+                    <li><a href="/contato/">Contato</a></li>
                 </ul>
             </nav>
             <div class="cart-icon">
@@ -60,20 +87,20 @@
                         <div class="filter-group">
                             <label for="search">Buscar</label>
                             <div class="search-container">
-                                <input type="text" id="search" placeholder="Buscar equipamento...">
-                                <button id="search-btn" class="btn-search"><i class="fas fa-search"></i></button>
+                                <input type="text" id="search" placeholder="Buscar equipamento..." tool-name="busca_catalogo" tool-description="Digite o nome do equipamento para filtrar os resultados.">
+                                <button id="search-btn" class="btn-search" tool-name="executar_busca"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
                         <div class="filter-group">
                             <label for="categoria">Categoria</label>
-                            <select id="categoria">
+                            <select id="categoria" tool-name="filtro_categoria" tool-description="Selecione a categoria de máquina (Ex: Tratores, Colhedoras).">
                                 <option value="">Todas</option>
                                 <!-- Preenchido via JavaScript -->
                             </select>
                         </div>
                         <div class="filter-group">
                             <label for="capacidade">Capacidade</label>
-                            <select id="capacidade">
+                            <select id="capacidade" tool-name="filtro_capacidade" tool-description="Selecione a capacidade de carga desejada.">
                                 <option value="">Todas</option>
                                 <!-- Preenchido via JavaScript -->
                             </select>
@@ -134,12 +161,12 @@
         <div class="cart-footer">
             <div class="cart-form">
                 <label for="quote-name">Nome</label>
-                <input type="text" id="quote-name" placeholder="Seu nome..." required>
+                <input type="text" id="quote-name" placeholder="Seu nome..." required tool-name="campo_nome_orcamento" tool-description="Nome completo do solicitante.">
                 <label for="quote-phone">Telefone (opcional)</label>
-                <input type="tel" id="quote-phone" placeholder="Seu telefone...">
+                <input type="tel" id="quote-phone" placeholder="Seu telefone..." tool-name="campo_telefone_orcamento">
                 <label for="cart-notes">Mensagem</label>
-                <textarea id="cart-notes" placeholder="Informações adicionais para o orçamento..."></textarea>
-                <button id="submit-quote" class="btn-quote">Solicitar Orçamento</button>
+                <textarea id="cart-notes" placeholder="Informações adicionais para o orçamento..." tool-name="campo_mensagem_orcamento" tool-description="Explique sua necessidade ou envie especificações da máquina."></textarea>
+                <button id="submit-quote" class="btn-quote" tool-name="enviar_pedido_orcamento" tool-description="Clique para enviar a solicitação de orçamento dos itens no carrinho.">Solicitar Orçamento</button>
             </div>
         </div>
     </div>

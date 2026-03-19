@@ -1,4 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Rastreador de Visitas Únicas por Sessão (TOPSTACK Security)
+    async function trackVisit() {
+        // Verifica se o Supabase e a configuração estão disponíveis
+        if (!window.supabase || !window.supabaseConfig) return;
+
+        const sessionKey = 'elev_session_tracked';
+        let sessionId = sessionStorage.getItem(sessionKey);
+
+        if (!sessionId) {
+            // Nova sessão detectada (fechar e abrir o navegador limpa o sessionStorage)
+            sessionId = (crypto && crypto.randomUUID) ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now();
+            sessionStorage.setItem(sessionKey, sessionId);
+
+            try {
+                const supabase = window.supabase.createClient(window.supabaseConfig.url, window.supabaseConfig.key);
+
+                await supabase.rpc('log_visit', { 
+                    p_session_id: sessionId,
+                    p_url: window.location.href,
+                    p_user_agent: navigator.userAgent
+                });
+            } catch (err) {
+                // Falha silenciosa para não atrapalhar a experiência do usuário
+                console.warn('Analytics offline');
+            }
+        }
+    }
+    trackVisit();
+
     // Mobile Menu Toggle
     const menuToggle = document.querySelector('.mobile-menu-toggle');
     const mobileMenu = document.querySelector('.mobile-menu');

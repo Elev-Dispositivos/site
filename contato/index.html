@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/license.js"></script>
     <!-- SEO Essencial -->
     <meta name="description" content="A ELEV Dispositivos oferece soluções robustas para elevação de máquinas agroindustriais, logísticas, construção civil e cargas pesadas, com tecnologia e segurança.">
     <meta name="keywords" content="elevadores industriais, equipamentos de elevação, soluções agroindustriais, logística, construção civil, cargas pesadas, guindastes, plataformas elevatórias, empilhadeiras, macacos hidráulicos, dispositivo de elevação, macacos de elevação, elevação de cargas, elevação de tratores, elevação de colheitadeiras, soluções de peso para o agro ">
@@ -19,8 +20,8 @@
     <meta property="og:url" content="https://www.elevdispositivos.com.br/">
 
     <!-- Comentário sobre o desenvolvimento -->
-    <!-- Site desenvolvido por FOSSIO FORCE - https://fossioforce.com.br -->
-    <!-- Desenvolvedor - Fossio -->
+    <!-- Site desenvolvido por TOPSTACK - https://topstack.com.br -->
+    <!-- Fale com a TOPSTACK: (51) 99305-3612 -->
 
     <title>Contato - ELEV Dispositivos</title>
     <link rel="stylesheet" href="/styles.css">
@@ -31,6 +32,23 @@
     <link rel="icon" href="/midias/favicon-120x120.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="/supabase-config.js"></script>
+
+    <!-- Dados Estruturados (JSON-LD) para SEO & IA (GEO) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contato - ELEV Dispositivos",
+      "description": "Entre em contato com a equipe técnica da Elev Dispositivos para orçamentos e consultoria em sistemas de elevação.",
+      "mainEntity": {
+        "@type": "ManufacturingBusiness",
+        "name": "ELEV Dispositivos",
+        "telephone": "+55-51-99239-9960",
+        "email": "contato@elevdispositivos.com.br"
+      }
+    }
+    </script>
 </head>
 <body>
     <header>
@@ -122,25 +140,32 @@
                 </div>
                 <div class="contact-form-container">
                     <h2>Envie uma Mensagem</h2>
-                    <form id="contactForm" class="contact-form">
+                    <form id="contactForm" class="contact-form" 
+                          tool-name="enviar_mensagem_contato" 
+                          tool-description="Formulário para envio de dúvidas técnicas, solicitações de orçamento e consultoria sobre dispositivos de elevação.">
                         <div class="form-group">
                             <label for="name">Nome completo *</label>
-                            <input type="text" id="name" name="name" required>
+                            <input type="text" id="name" name="name" 
+                                   tool-description="Nome completo do solicitante" required>
                         </div>
                         <div class="form-group">
                             <label for="company">Empresa</label>
-                            <input type="text" id="company" name="company">
+                            <input type="text" id="company" name="company" 
+                                   tool-description="Nome da empresa ou propriedade rural">
                         </div>
                         <div class="form-group">
                             <label for="phone">Telefone *</label>
-                            <input type="tel" id="phone" name="phone" required>
+                            <input type="tel" id="phone" name="phone" 
+                                   tool-description="WhatsApp ou telefone de contato com DDD" required>
                         </div>
                         <div class="form-group full-width">
                             <label for="message">Mensagem *</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <textarea id="message" name="message" rows="5" 
+                                      tool-description="Detalhes da solicitação, modelo da máquina ou dúvida técnica" required></textarea>
                         </div>
                         <div class="form-group full-width">
-                            <button type="submit" class="btn btn-primary">Enviar mensagem</button>
+                            <button type="submit" class="btn btn-primary" 
+                                    tool-action="Submeter solicitação de contato">Enviar mensagem</button>
                         </div>
                     </form>
                     <div class="form-success" id="formSuccess">
@@ -162,19 +187,15 @@
             <div class="container">
                 <h2>Nossa Localização</h2>
                 <div class="map-container">
-                    <div class="map-placeholder">
-                        <svg width="100%" height="400" viewBox="0 0 800 400">
-                            <rect width="800" height="400" fill="#f5f5f5" />
-                            <path d="M0,200 L800,200 M400,0 L400,400" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5" />
-                            <rect x="350" y="175" width="100" height="50" fill="#2E7D32" rx="5" />
-                            <circle cx="400" cy="200" r="10" fill="#FFD700" />
-                            <text x="400" y="220" fill="white" font-family="Roboto" font-size="12" text-anchor="middle">ELEV Dispositivos</text>
-                            
-                            <circle cx="400" cy="200" r="50" fill="none" stroke="#2E7D32" stroke-width="2" stroke-dasharray="3,3" />
-                            <text x="400" y="320" fill="#1C1C1C" font-family="Roboto" font-size="14" text-anchor="middle">Mapa será carregado quando habilitado</text>
-                            <text x="400" y="350" fill="#1C1C1C" font-family="Roboto" font-size="14" text-anchor="middle">RS 342 Km 1 n⁰45 - Bairro Industrial II - Horizontina/RS</text>
-                        </svg>
-                    </div>
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14112.5539589314!2d-54.305!3d-27.625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94fb9bc3a0000001%3A0x5e0f9b3b8c3b3b3b!2sRS-342%2C+Horizontina+-+RS!5e0!3m2!1spt-BR!2sbr!4v1710884800000!5m2!1spt-BR!2sbr" 
+                        width="100%" 
+                        height="450" 
+                        style="border:0; display: block;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
             </div>
         </section>
@@ -228,6 +249,7 @@
                             <li><a href="/contato/">Contato</a></li>
                             <li><a href="/trabalhe-conosco/">Trabalhe Conosco</a></li>
                             <li><a href="/blog-tecnico/">Blog Técnico</a></li>
+                            <li><a href="/legal">Termos e Privacidade</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
@@ -246,7 +268,8 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 ELEV Dispositivos. Todos os direitos reservados.</p>
+                <p>&copy; 2025 ELEV Dispositivos. Todos os direitos reservados.</p>
+                <a href="https://topstack.com.br?utm_source=elevdispositivos.com.br&utm_medium=software_branding&utm_campaign=dev_by_topstack" target="_blank" class="dev-link">Desenvolvido por TOPSTACK</a>
             </div>
         </div>
     </footer>

@@ -1,6 +1,6 @@
-// Configuração do Supabase
-const supabaseUrl = 'https://pvlobuvyblzcielydbum.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2bG9idXZ5Ymx6Y2llbHlkYnVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5NTExMjcsImV4cCI6MjA2MTUyNzEyN30.o4VBtpt5wHLj7j-RpcHGYgh6eogCpMnp9jDJM4yecMw';
+// Configuração do Supabase (Carregada via window.supabaseConfig no index.html)
+const supabaseUrl = window.supabaseConfig.url;
+const supabaseKey = window.supabaseConfig.key;
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 let dispositivosOriginais = [];
@@ -293,9 +293,10 @@ function renderizarDispositivosPaginados() {
 }
 
 async function buscarDispositivos() {
+    // Selecionar apenas as colunas necessárias para o grid, aumentando a velocidade de resposta
     const { data, error } = await supabase
         .from('view_dispositivos_publicos')
-        .select('*');
+        .select('id, nome, categoria, url_img, tags, dados_tecnicos');
 
     if (error) {
         console.error('Erro ao buscar dispositivos:', error);
@@ -317,26 +318,27 @@ function renderizarDispositivos(dispositivos) {
         return;
     }
 
+    const fragment = document.createDocumentFragment();
+
     dispositivos.forEach(dispositivo => {
         const item = document.createElement('div');
         item.className = 'product-item';
-        item.setAttribute('data-category', dispositivo.categoria);
-
-        // Capacidade e travamento para filtros
+        
+        // Atributos de dados para filtros
         const capacidade = getCapacidadeFiltro(dispositivo.dados_tecnicos?.capacidade);
-        const travamento = (dispositivo.dados_tecnicos?.travamento || '').toLowerCase();
-
+        item.setAttribute('data-category', dispositivo.categoria);
         item.setAttribute('data-capacidade', capacidade);
-        item.setAttribute('data-travamento', travamento);
 
-        // Fallback para imagem
         const imgUrl = dispositivo.url_img || '/midias/elev-fallback-tratores.png';
-        // Código do dispositivo
         const codigo = dispositivo.dados_tecnicos?.codigo || '-';
 
         item.innerHTML = `
             <div class="product-image">
-                <img src="${imgUrl}" alt="${dispositivo.nome}" style="width:100%;height:200px;object-fit:cover;">
+                <img src="${imgUrl}" 
+                     alt="${dispositivo.nome}" 
+                     loading="lazy" 
+                     decoding="async"
+                     style="width:100%;height:200px;object-fit:cover;">
             </div>
             <div class="product-details">
                 <h3>${dispositivo.nome}</h3>
@@ -352,13 +354,17 @@ function renderizarDispositivos(dispositivos) {
                 </div>
             </div>
         `;
+        
         // Evento para abrir modal
         item.querySelector('.ver-ficha').addEventListener('click', function(e) {
             e.preventDefault();
             abrirModal(dispositivo);
         });
-        wrapper.appendChild(item);
+        
+        fragment.appendChild(item);
     });
+    
+    wrapper.appendChild(fragment);
 }
 
 // Função para mapear capacidade para o filtro
@@ -375,8 +381,11 @@ function getCapacidadeFiltro(capacidade) {
 
 // Filtros
 function configurarFiltros() {
-    document.getElementById('categoria-select').addEventListener('change', aplicarFiltros);
-    document.getElementById('capacidade').addEventListener('change', aplicarFiltros);
+    const catSelect = document.getElementById('categoria-select');
+    const capSelect = document.getElementById('capacidade');
+    
+    if (catSelect) catSelect.addEventListener('change', aplicarFiltros);
+    if (capSelect) capSelect.addEventListener('change', aplicarFiltros);
 }
 
 function aplicarFiltros() {
@@ -397,81 +406,3 @@ function aplicarFiltros() {
     paginaAtual = 1;
     renderizarDispositivosPaginados();
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Filter functionality
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    const capacidadeSelect = document.getElementById('capacidade');
-    const productItems = document.querySelectorAll('.product-item');
-    
-    function filterProducts() {
-        const selectedCategory = document.querySelector('.category-btn.active').dataset.category;
-        const selectedCapacidade = capacidadeSelect.value;
-        
-        productItems.forEach(item => {
-            const matchesCategory = selectedCategory === 'todos' || item.dataset.category === selectedCategory;
-            const matchesCapacidade = selectedCapacidade === 'todos' || item.dataset.capacidade === selectedCapacidade;
-            
-            if (matchesCategory && matchesCapacidade) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    }
-    
-    // Category button click handler
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            filterProducts();
-        });
-    });
-    
-    // Select change handlers
-    capacidadeSelect.addEventListener('change', filterProducts);
-    
-    // Check if URL has a hash and activate the corresponding category
-    function activateFromHash() {
-        const hash = window.location.hash.substring(1);
-        if (hash) {
-            const button = document.getElementById(hash);
-            if (button) {
-                categoryButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                filterProducts();
-                
-                // Scroll to filter section
-                const filterSection = document.querySelector('.filter-section');
-                if (filterSection) {
-                    setTimeout(() => {
-                        window.scrollTo({
-                            top: filterSection.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }, 100);
-                }
-            }
-        }
-    }
-    
-    activateFromHash();
-    
-    // Listen for hash changes
-    window.addEventListener('hashchange', activateFromHash);
-    
-    // Responsive adjustments
-    function handleResponsiveLayout() {
-        const filterSection = document.querySelector('.filter-section');
-        if (window.innerWidth <= 768) {
-            filterSection.classList.remove('sticky');
-        } else {
-            filterSection.classList.add('sticky');
-        }
-    }
-    
-    window.addEventListener('resize', handleResponsiveLayout);
-    handleResponsiveLayout();
-});
-

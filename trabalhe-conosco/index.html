@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/license.js"></script>
     <!-- SEO Essencial -->
     <meta name="description" content="A ELEV Dispositivos oferece soluções robustas para elevação de máquinas agroindustriais, logísticas, construção civil e cargas pesadas, com tecnologia e segurança.">
     <meta name="keywords" content="elevadores industriais, equipamentos de elevação, soluções agroindustriais, logística, construção civil, cargas pesadas, guindastes, plataformas elevatórias, empilhadeiras, macacos hidráulicos, dispositivo de elevação, macacos de elevação, elevação de cargas, elevação de tratores, elevação de colheitadeiras, soluções de peso para o agro ">
@@ -19,8 +20,8 @@
     <meta property="og:url" content="https://www.elevdispositivos.com.br/">
 
     <!-- Comentário sobre o desenvolvimento -->
-    <!-- Site desenvolvido por FOSSIO FORCE - https://fossioforce.com.br -->
-    <!-- Desenvolvedor - Fossio -->
+    <!-- Site desenvolvido por TOPSTACK - https://topstack.com.br -->
+    <!-- Fale com a TOPSTACK: (51) 99305-3612 -->
 
     <title>Trabalhe Conosco - ELEV Dispositivos</title>
     <link rel="stylesheet" href="/styles.css">
@@ -31,6 +32,21 @@
     <link rel="icon" href="/midias/favicon-120x120.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="/supabase-config.js"></script>
+
+    <!-- Dados Estruturados (JSON-LD) para SEO & IA (GEO) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Trabalhe Conosco - ELEV Dispositivos",
+      "description": "Faça parte da equipe da Elev Dispositivos. Envie seu currículo e colabore no desenvolvimento de tecnologias de elevação agroindustrial.",
+      "publisher": {
+        "@type": "ManufacturingBusiness",
+        "name": "ELEV Dispositivos"
+      }
+    }
+    </script>
 </head>
 <body>
     <header>
@@ -43,9 +59,9 @@
             <nav>
                 <ul class="desktop-menu">
                     <li><a href="/">Início</a></li>
-                    <li><a href="/dispositivos">Dispositivos</a></li>
-                    <li><a href="/sobre">Sobre Nós</a></li>
-                    <li><a href="/contato">Contato</a></li>
+                    <li><a href="/dispositivos/">Dispositivos</a></li>
+                    <li><a href="/sobre/">Sobre Nós</a></li>
+                    <li><a href="/contato/">Contato</a></li>
                 </ul>
                 <div class="mobile-menu-toggle">
                     <i class="fas fa-bars"></i>
@@ -55,11 +71,11 @@
         <div class="mobile-menu">
             <ul>
                 <li><a href="/">Início</a></li>
-                <li><a href="/dispositivos">Dispositivos</a></li>
-                <li><a href="/sobre">Sobre Nós</a></li>
-                <li><a href="/contato">Contato</a></li>
-                <li><a href="/blog-tecnico">Blog Técnico</a></li>
-                <li><a href="/trabalhe-conosco">Trabalhe Conosco</a></li>
+                <li><a href="/dispositivos/">Dispositivos</a></li>
+                <li><a href="/sobre/">Sobre Nós</a></li>
+                <li><a href="/contato/">Contato</a></li>
+                <li><a href="/blog-tecnico/">Blog Técnico</a></li>
+                <li><a href="/trabalhe-conosco/">Trabalhe Conosco</a></li>
             </ul>
         </div>
     </header>
@@ -199,22 +215,27 @@
                 <h2>Cadastre seu currículo</h2>
                 <p class="section-subtitle">Mesmo que não encontre uma vaga específica, envie seu currículo para nosso banco de talentos.</p>
                 
-                <form id="applicationForm" class="application-form">
+                <form id="applicationForm" class="application-form" 
+                      tool-name="enviar_curriculo_talentos" 
+                      tool-description="Formulário para cadastro de currículo no banco de talentos da Elev Dispositivos.">
                     <div class="form-group">
                         <label for="name">Nome completo *</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="name" 
+                               tool-description="Nome completo do candidato" required>
                     </div>
                     <div class="form-group">
                         <label for="email">E-mail *</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" 
+                               tool-description="E-mail de contato do candidato" required>
                     </div>
                     <div class="form-group">
                         <label for="phone">Telefone *</label>
-                        <input type="tel" id="phone" name="phone" required>
+                        <input type="tel" id="phone" name="phone" 
+                               tool-description="WhatsApp ou telefone com DDD" required>
                     </div>
                     <div class="form-group">
                         <label for="area">Área de interesse *</label>
-                        <select id="area" name="area" required>
+                        <select id="area" name="area" tool-description="Área profissional de atuação desejada" required>
                             <option value="">Selecione uma opção</option>
                             <option value="engenharia">Engenharia</option>
                             <option value="producao">Produção</option>
@@ -226,18 +247,22 @@
                     </div>
                     <div class="form-group">
                         <label for="position">Vaga específica (se aplicável)</label>
-                        <input type="text" id="position" name="position">
+                        <input type="text" id="position" name="position" 
+                               tool-description="Título da vaga específica caso esteja se candidatando a uma anunciada">
                     </div>
                     <div class="form-group full-width">
                         <label for="message">Mensagem</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Conte-nos sobre sua experiência e por que gostaria de trabalhar na ELEV"></textarea>
+                        <textarea id="message" name="message" rows="4" 
+                                  tool-description="Resumo de experiências e motivações" 
+                                  placeholder="Conte-nos sobre sua experiência e por que gostaria de trabalhar na ELEV"></textarea>
                     </div>
                     <div class="form-group checkbox-group">
                         <input type="checkbox" id="privacy" name="privacy" required>
-                        <label for="privacy">Concordo com a <a href="#">Política de Privacidade</a> e o tratamento dos meus dados pessoais *</label>
+                        <label for="privacy">Concordo com a <a href="/legal#privacidade">Política de Privacidade</a> e o tratamento dos meus dados pessoais *</label>
                     </div>
                     <div class="form-group full-width">
-                        <button type="submit" class="btn btn-primary">Enviar currículo</button>
+                        <button type="submit" class="btn btn-primary" 
+                                tool-action="Submeter currículo para RH">Enviar currículo</button>
                     </div>
                 </form>
                 <div class="form-success" id="formSuccess">
@@ -290,6 +315,7 @@
                             <li><a href="/contato">Contato</a></li>
                             <li><a href="/trabalhe-conosco">Trabalhe Conosco</a></li>
                             <li><a href="/blog-tecnico/">Blog Técnico</a></li>
+                            <li><a href="/legal">Termos e Privacidade</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
@@ -308,7 +334,8 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 ELEV Dispositivos. Todos os direitos reservados.</p>
+                <p>&copy; 2025 ELEV Dispositivos. Todos os direitos reservados.</p>
+                <a href="https://topstack.com.br?utm_source=elevdispositivos.com.br&utm_medium=software_branding&utm_campaign=dev_by_topstack" target="_blank" class="dev-link">Desenvolvido por TOPSTACK</a>
             </div>
         </div>
     </footer>

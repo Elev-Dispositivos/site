@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/license.js"></script>
+    <meta name="description" content="Termos de Uso e Política de Privacidade da ELEV Dispositivos.">
+    <meta name="author" content="TOPSTACK">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Comentário sobre o desenvolvimento -->
+    <!-- Site desenvolvido por TOPSTACK - https://topstack.com.br -->
+    <!-- Fale com a TOPSTACK: (51) 99305-3612 -->
+
+    <title>Termos e Privacidade - ELEV Dispositivos</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/midias/favicon-120x120.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Supabase e Configurações -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="/supabase-config.js"></script>
+
+    <!-- Dados Estruturados (JSON-LD) para SEO & IA (GEO) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Termos e Privacidade - ELEV Dispositivos",
+      "description": "Informações legais, Termos de Uso e Política de Privacidade da Elev Dispositivos.",
+      "publisher": {
+        "@type": "ManufacturingBusiness",
+        "name": "ELEV Dispositivos"
+      }
+    }
+    </script>
+    
+    <style>
+        .legal-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 40px 0;
+            border-bottom: 1px solid var(--gray);
+            padding-bottom: 0px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            color: #777;
+            transition: var(--transition);
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+        }
+
+        .tab-btn.active:after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 40px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            line-height: 1.8;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content h2 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .tab-content h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .tab-content p {
+            margin-bottom: 20px;
+        }
+
+        .tab-content ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            list-style: disc;
+        }
+
+        .tab-content li {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+                flex: 1;
+                text-align: center;
+            }
+            .tab-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                    <img src="/midias/200x60 elev.png" alt="ELEV Dispositivos" width="260" height="50">
+                </a>
+            </div>
+            <nav>
+                <ul class="desktop-menu">
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/dispositivos/">Dispositivos</a></li>
+                    <li><a href="/sobre/">Sobre Nós</a></li>
+                    <li><a href="/contato/">Contato</a></li>
+                </ul>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="/">Início</a></li>
+                <li><a href="/dispositivos/">Dispositivos</a></li>
+                <li><a href="/sobre/">Sobre Nós</a></li>
+                <li><a href="/contato/">Contato</a></li>
+                <li><a href="/blog-tecnico/">Blog Técnico</a></li>
+                <li><a href="/trabalhe-conosco/">Trabalhe Conosco</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="legal-tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'privacidade')" id="defaultOpen">Política de Privacidade</button>
+            <button class="tab-btn" onclick="openTab(event, 'termos')">Termos de Uso</button>
+            <button class="tab-btn" onclick="openTab(event, 'devolucao')">Política de Devolução</button>
+        </div>
+
+        <div id="privacidade" class="tab-content active">
+            <h2>Política de Privacidade</h2>
+            <p>A <strong>ELEV Dispositivos</strong> (JAF Indústria e comércio LTDA) valoriza a sua privacidade. Esta Política de Privacidade descreve como coletamos, usamos e protegemos suas informações pessoais ao utilizar nosso site.</p>
+            
+            <h3>1. Coleta de Informações</h3>
+            <p>Coletamos informações que você nos fornece diretamente através de formulários de contato, incluindo:</p>
+            <ul>
+                <li>Nome completo;</li>
+                <li>Endereço de e-mail;</li>
+                <li>Número de telefone;</li>
+                <li>Mensagens e informações sobre suas necessidades técnicas.</li>
+            </ul>
+
+            <h3>2. Uso das Informações</h3>
+            <p>As informações coletadas são utilizadas exclusivamente para:</p>
+            <ul>
+                <li>Responder às suas solicitações de orçamento e suporte técnico;</li>
+                <li>Enviar informações relevantes sobre nossos produtos e serviços (quando autorizado);</li>
+                <li>Melhorar a experiência de navegação em nosso site;</li>
+                <li>Garantir a segurança de nossas operações e usuários.</li>
+            </ul>
+
+            <h3>3. Proteção de Dados</h3>
+            <p>Implementamos medidas de segurança técnicas e administrativas para proteger seus dados pessoais contra acesso não autorizado, perda ou alteração. Seus dados são armazenados em ambientes seguros e o acesso é restrito a colaboradores autorizados.</p>
+
+            <h3>4. Compartilhamento de Dados</h3>
+            <p>A ELEV Dispositivos <strong>não vende nem aluga</strong> seus dados pessoais para terceiros. Podemos compartilhar informações apenas com prestadores de serviços que nos auxiliam na manutenção do site ou quando exigido por lei.</p>
+
+            <h3>5. Cookies</h3>
+            <p>Utilizamos cookies para entender como os visitantes interagem com o site e para melhorar sua usabilidade. Você pode optar por desativar os cookies em seu navegador, embora isso possa afetar algumas funcionalidades do site.</p>
+
+            <h3>6. Seus Direitos</h3>
+            <p>Você tem o direito de solicitar o acesso, correção ou exclusão de seus dados pessoais a qualquer momento através do e-mail <strong>contato@elevdispositivos.com.br</strong>.</p>
+        </div>
+
+        <div id="termos" class="tab-content">
+            <h2>Termos de Uso</h2>
+            <p>Ao acessar o site da <strong>ELEV Dispositivos</strong>, você concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis ​​e concorda que é responsável pelo cumprimento de todas as leis locais aplicáveis.</p>
+
+            <h3>1. Uso de Licença</h3>
+            <p>É concedida permissão para baixar temporariamente uma cópia dos materiais (informações ou software) no site da ELEV Dispositivos, apenas para visualização pessoal e não comercial. Esta é a concessão de uma licença, não uma transferência de título e, sob esta licença, você não pode:</p>
+            <ul>
+                <li>Modificar ou copiar os materiais;</li>
+                <li>Usar os materiais para qualquer finalidade comercial ou para exibição pública;</li>
+                <li>Tentar descompilar ou fazer engenharia reversa de qualquer software contido no site;</li>
+                <li>Remover quaisquer direitos autorais ou outras notações de propriedade dos materiais.</li>
+            </ul>
+
+            <h3>2. Isenção de Responsabilidade</h3>
+            <p>Os materiais no site da ELEV Dispositivos são fornecidos 'como estão'. Não oferecemos garantias, expressas ou implícitas, e, por este meio, isenta e nega todas as outras garantias, incluindo, sem limitação, garantias implícitas de comercialização ou adequação a um fim específico.</p>
+
+            <h3>3. Propriedade Intelectual</h3>
+            <p>Todo o conteúdo deste site, incluindo logotipos, textos, gráficos, imagens e tecnologias patenteadas (como o sistema <strong>TRAVA JACARÉ®</strong>), é propriedade exclusiva da ELEV Dispositivos e está protegido por leis de direitos autorais e marcas registradas.</p>
+
+            <h3>4. Precisão dos Materiais</h3>
+            <p>Os materiais exibidos no site podem incluir erros técnicos, tipográficos ou fotográficos. A ELEV Dispositivos não garante que qualquer material em seu site seja preciso, completo ou atual. Podemos fazer alterações nos materiais contidos em nosso site a qualquer momento, sem aviso prévio.</p>
+
+            <h3>5. Links</h3>
+            <p>A ELEV Dispositivos não analisou todos os sites vinculados ao seu site e não é responsável pelo conteúdo de nenhum site vinculado. A inclusão de qualquer link não implica endosso por parte da ELEV.</p>
+
+            <h3>6. Modificações</h3>
+            <p>A ELEV Dispositivos pode revisar estes termos de uso a qualquer momento, sem aviso prévio. Ao usar este site, você concorda em ficar vinculado à versão atual desses termos de serviço.</p>
+        </div>
+
+        <div id="devolucao" class="tab-content">
+            <h2>Política de Devolução e Troca</h2>
+            <p>Na <strong>ELEV Dispositivos</strong>, priorizamos a segurança, qualidade e a satisfação dos nossos clientes. Esta política descreve como procedemos com devoluções, trocas e garantias, garantindo transparência e agilidade.</p>
+
+            <h3>1. Condições Gerais de Devolução</h3>
+            <ul>
+                <li><strong>Prazo:</strong> o cliente tem até 7 dias corridos após o recebimento para solicitar devolução (direito de arrependimento, conforme CDC).</li>
+                <li>O produto deve estar sem uso, com nota fiscal e em sua embalagem original. A ELEV reserva-se ao direito de recusar devoluções que não atendam a estes requisitos.</li>
+                <li>Para solicitar, entre em contato pelo e-mail ou WhatsApp oficial.</li>
+            </ul>
+
+            <h3>2. Trocas por Defeito ou Avaria</h3>
+            <ul>
+                <li><strong>Prazo:</strong> até 30 dias após o recebimento para vícios aparentes ou de fabricação.</li>
+                <li>A ELEV cobre trocas ou reparos quando constatado vício de fabricação. Não são cobertos defeitos decorrentes de mau uso, instalação incorreta ou desgaste natural.</li>
+            </ul>
+
+            <h3>3. Garantia Técnica ELEV</h3>
+            <ul>
+                <li>Todos os dispositivos são fabricados conforme a norma NR12.</li>
+                <li>A garantia cobre componentes estruturais e hidráulicos. O prazo padrão é de 12 meses a partir da data de recebimento.</li>
+            </ul>
+
+            <h3>4. Processo e Reembolso</h3>
+            <ul>
+                <li>O reembolso será realizado na mesma forma de pagamento em até 10 dias úteis após a aprovação da devolução.</li>
+                <li>Os custos de frete são cobertos pela ELEV em casos de erro de envio ou defeito confirmado.</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="/midias/JAF.png" alt="JAF Indústria e comércio LTDA" width="201" height="63" />
+                    <p>Soluções de elevação com segurança e tecnologia</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Produtos</h3>
+                        <ul>
+                            <li><a href="/dispositivos">Série Tratores</a></li>
+                            <li><a href="/dispositivos">Série Colhedeiras</a></li>
+                            <li><a href="/dispositivos">Série Pulverizadores</a></li>
+                            <li><a href="/dispositivos">Série Veículos</a></li>
+                            <li><a href="/dispositivos">Série Indústria</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Empresa</h3>
+                        <ul>
+                            <li><a href="/sobre">Sobre Nós</a></li>
+                            <li><a href="/contato">Contato</a></li>
+                            <li><a href="/trabalhe-conosco">Trabalhe Conosco</a></li>
+                            <li><a href="/blog-tecnico">Blog Técnico</a></li>
+                            <li><a href="/legal">Termos e Privacidade</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 ELEV Dispositivos. Todos os direitos reservados.</p>
+                <a href="https://topstack.com.br?utm_source=elevdispositivos.com.br&utm_medium=software_branding&utm_campaign=dev_by_topstack" target="_blank" class="dev-link">Desenvolvido por TOPSTACK</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/scripts.js"></script>
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            
+            // Alterar URL para caminho limpo sem #
+            const newPath = '/legal/' + tabName;
+            history.pushState(null, null, newPath);
+        }
+
+        // Recuperar estado da URL ao carregar a página
+        window.addEventListener('DOMContentLoaded', function() {
+            const path = window.location.pathname;
+            
+            if (path.includes('termos')) {
+                // Selecionar o botão de termos e clicar nele
+                const termsBtn = document.querySelector('.tab-btn[onclick*="termos"]');
+                if (termsBtn) termsBtn.click();
+            } else if (path.includes('devolucao')) {
+                // Selecionar o botão de devolução e clicar nele
+                const devBtn = document.querySelector('.tab-btn[onclick*="devolucao"]');
+                if (devBtn) devBtn.click();
+            } else {
+                // Default: clicar no botão privacidade (ID defaultOpen)
+                const defaultBtn = document.getElementById("defaultOpen");
+                if (defaultBtn) defaultBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>

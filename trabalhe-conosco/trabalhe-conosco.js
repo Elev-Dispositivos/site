@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Configuração do Supabase
-    const supabaseUrl = 'https://pvlobuvyblzcielydbum.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2bG9idXZ5Ymx6Y2llbHlkYnVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5NTExMjcsImV4cCI6MjA2MTUyNzEyN30.o4VBtpt5wHLj7j-RpcHGYgh6eogCpMnp9jDJM4yecMw';
+    // Configuração do Supabase (Carregada via window.supabaseConfig no index.html)
+    const supabaseUrl = window.supabaseConfig.url;
+    const supabaseKey = window.supabaseConfig.key;
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     // Form handling
@@ -24,12 +24,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // Formata a experiência
             const experiencia = `Área de interesse: ${area}\nVaga específica: ${position}\nMensagem: ${message}`;
 
-            // Envio para o Supabase
-            const { data, error } = await supabase
-                .from('candidatos')
-                .insert([
-                    { nome, email, telefone, linkedin: '', cargo_desejado: position, experiencia }
-                ]);
+            // Envio para o Supabase via RPC Segura (Previne bypass de RLS)
+            const { data, error } = await supabase.rpc('submeter_candidatura', {
+                p_nome: nome,
+                p_email: email,
+                p_telefone: telefone,
+                p_linkedin: '', // Pode ser expandido se houver campo no form
+                p_cargo_desejado: position,
+                p_experiencia: experiencia
+            });
 
             if (error) {
                 console.error('Erro ao enviar dados:', error);

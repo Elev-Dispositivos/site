@@ -1,2 +1,3 @@
 [build]
   publish = "."
+  command = "echo \"window.supabaseConfig = { url: '$SUPABASE_URL', key: '$SUPABASE_KEY' };\" > supabase-config.js"

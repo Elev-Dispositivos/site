@@ -1,0 +1,52 @@
+name: "Operação WebMCP VM"
+code: "webmcp_optimization"
+description: "Otimização do site VM Gestão Estratégica para o padrão WebMCP 2.0 e ranqueamento GEO (IA)."
+version: "1.0.0"
+
+skills:
+  - web_search
+  - web_fetch
+
+data:
+  - pipeline/data/research-brief.md
+  - pipeline/data/domain-framework.md
+  - pipeline/data/quality-criteria.md
+  - pipeline/data/output-examples.md
+  - pipeline/data/anti-patterns.md
+  - pipeline/data/tone-of-voice.md
+
+pipeline:
+  - step: 01
+    name: "Pesquisa de Especificações"
+    agent: "rafaela_referencia"
+    tasks: ["tasks/mapear-specs.md"]
+    execution: subagent
+    outputFile: "squads/webmcp_optimization/output/manual-best-practices.md"
+
+  - step: 02
+    type: checkpoint
+    name: "Definição de Escopo de Auditoria"
+    outputFile: "squads/webmcp_optimization/pipeline/data/auditoria-focus.md"
+
+  - step: 03
+    name: "Auditoria Técnica do Site"
+    agent: "augusto_auditor"
+    tasks: ["tasks/auditar-home.md", "tasks/analisar-formularios.md"]
+    inputFile: "squads/webmcp_optimization/pipeline/data/auditoria-focus.md"
+    execution: subagent
+    outputFile: "squads/webmcp_optimization/output/relatorio-auditoria.md"
+
+  - step: 04
+    name: "Arborização do Guia de Implementação"
+    agent: "guilherme_guia"
+    tasks: ["tasks/desenhar-roteiro.md"]
+    execution: inline
+    outputFile: "squads/webmcp_optimization/output/implementacao-webmcp.md"
+
+  - step: 05
+    name: "Revisão Técnica e Veredito"
+    agent: "vera_veredito"
+    tasks: ["tasks/revisao-tecnica.md"]
+    execution: inline
+    on_reject: 04
+    outputFile: "squads/webmcp_optimization/output/guia-final-aprovado.md"
