@@ -147,6 +147,7 @@
                             <li><a href="/contato/">Contato</a></li>
                             <li><a href="/trabalhe-conosco/">Trabalhe Conosco</a></li>
                             <li><a href="/blog-tecnico/">Blog Técnico</a></li>
+                            <li><a href="/legal/">Termos e Privacidade</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
@@ -172,12 +173,11 @@
     </footer>
 
     <script>
-        // Configuração do Supabase (Carregada via window.supabaseConfig no index.html)
-        const supabaseUrl = window.supabaseConfig.url;
-        const supabaseKey = window.supabaseConfig.key;
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
         document.addEventListener('DOMContentLoaded', async function() {
+            // Isolando o cliente para evitar conflitos de declaração
+            const { url: supabaseUrl, key: supabaseKey } = window.supabaseConfig;
+            const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
             const params = new URLSearchParams(window.location.search);
             const slug = params.get('slug'); // Obtém a slug da URL
 
@@ -189,10 +189,10 @@
             // Função para buscar o post pela slug
             async function fetchPostBySlug(slug) {
                 const { data, error } = await supabase
-                    .from('view_posts_blog')
+                    .from('posts_blog')
                     .select('*')
                     .eq('slug', slug)
-                    .single(); // Busca um único post
+                    .maybeSingle(); // Busca o post
 
                 if (error) {
                     console.error('Erro ao buscar post:', error);
@@ -266,8 +266,6 @@
                 `;
                 postGrid.appendChild(postCard);
             });
-
-            console.log('Posts renderizados:', posts);
         }
     </script>
 </body>

@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', async function() {
-    // Inicialização do Supabase (Valores carregados via supabase-config.js)
-    const supabaseUrl = window.supabaseConfig.url;
-    const supabaseKey = window.supabaseConfig.key;
+    // Escopo isolado para evitar conflitos globais
+    const { url: supabaseUrl, key: supabaseKey } = window.supabaseConfig;
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     // Função para buscar posts
     async function fetchPosts() {
         const { data, error } = await supabase
-            .from('view_posts_blog')
-            .select('*');
+            .from('posts_blog')
+            .select('*')
+            .order('publicado_em', { ascending: false });
 
         if (error) {
             console.error('Erro ao buscar posts:', error);
@@ -19,13 +19,25 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Função para buscar o último post da categoria "featured-post"
     async function fetchFeaturedPost() {
-        const { data, error } = await supabase
-            .from('view_posts_blog')
+        // Tenta buscar o marcado como destaque
+        let { data, error } = await supabase
+            .from('posts_blog')
             .select('*')
             .eq('categoria', 'featured-post')
             .order('publicado_em', { ascending: false })
-            .limit(1)
-            .single(); // Pega apenas um post
+            .maybeSingle();
+
+        // Fallback: se não tiver destaque, pega o mais recente de qualquer categoria
+        if (!data && !error) {
+            const result = await supabase
+                .from('posts_blog')
+                .select('*')
+                .order('publicado_em', { ascending: false })
+                .limit(1)
+                .maybeSingle();
+            data = result.data;
+            error = result.error;
+        }
 
         if (error) {
             console.error('Erro ao buscar post em destaque:', error);
@@ -120,7 +132,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         renderPosts(posts);
 
         const featuredPost = await fetchFeaturedPost();
-        console.log('Post em destaque:', featuredPost); // Log para verificar os dados
         renderFeaturedPost(featuredPost);
     }
 
